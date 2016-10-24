@@ -101,7 +101,7 @@
             }
             else if(e.keyCode == 38) // up/rotate
             {
-                rotation = pieceDiv.getRotateAngle()[0] === undefined ? 0 : pieceDiv.getRotateAngle()[0];
+                var rotation = pieceDiv.getRotateAngle()[0] === undefined ? 0 : pieceDiv.getRotateAngle()[0];
                 pieceDiv.rotate(rotation + 90);
             }
             else if(e.keyCode == 39) // right
