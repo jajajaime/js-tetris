@@ -20,6 +20,7 @@
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
         integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc="
         crossorigin="anonymous"></script>
+    <script src="jQueryRotate.js"></script>
     <script>
         var colors = ['red', 'green', 'blue', 'purple', 'grey'],
         block =
@@ -92,6 +93,11 @@
                 }
 
                 pieceDiv.css('left', left + 'px');
+            }
+            else if(e.keyCode == 38) // up/rotate
+            {
+                rotation = pieceDiv.getRotateAngle()[0] === undefined ? 0 : pieceDiv.getRotateAngle()[0];
+                pieceDiv.rotate(rotation + 90);
             }
             else if(e.keyCode == 39) // right
             {
