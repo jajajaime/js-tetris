@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tetris</title>
+
+    <style>
+        .board{
+            border: 1px solid black;
+            position: relative;
+        }
+        .piece{
+            position: absolute;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="board"></div>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+        integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc="
+        crossorigin="anonymous"></script>
+    <script>
+        var colors = ['red', 'green', 'blue', 'yellow', 'black', 'purple', 'grey'];
+        var block =
+        {
+            width: 30, // px
+            height: 30 // px
+        };
+        var pieces =
+        {
+            "I":{
+                width: (1 * block.width) + 'px',
+                height: (4 * block.height) + 'px'
+            },
+            "J":{
+                width: (2 * block.width) + 'px',
+                height: (3 * block.height) + 'px'
+            },
+            "L":{
+                width: (2 * block.width) + 'px',
+                height: (3 * block.height) + 'px'
+            },
+            "O":{
+                width: (2 * block.width) + 'px',
+                height: (2 * block.height) + 'px'
+            },
+            "S":{
+                width: (3 * block.width) + 'px',
+                height: (3 * block.height) + 'px'
+            },
+            "T":{
+                width: (3 * block.width) + 'px',
+                height: (3 * block.height) + 'px'
+            },
+            "Z":{
+                width: (3 * block.width) + 'px',
+                height: (3 * block.height) + 'px'
+            }
+        };
+        var board =
+        {
+            width: (10 * block.width) + 'px',
+            height: (10 * block.height) + 'px'
+        };
+
+        $('.board').css({
+            'width': board.width,
+            'height': board.height
+        });
+
+        main();
+        setInterval(function()
+        {
+            main();
+        }, 30000);
+
+
+        function main()
+        {
+            var piece = randomPiece();
+            window.console && console.log(piece);
+            window.console && console.log(pieces[piece]);
+
+            var pieceDiv = $('<div>')
+                .addClass('piece')
+                .css({
+                    'width': pieces[piece].width,
+                    'height': pieces[piece].height,
+                    'top': 0,
+                    'left': 0,
+                    'backgroundColor': randomColor()
+                });
+
+            $('.board').append(pieceDiv);
+        }
+
+
+        // Select a random piece
+        function randomPiece()
+        {
+            var keys = Object.keys(pieces)
+            return keys[keys.length * Math.random() << 0];
+            return pieces[keys[ keys.length * Math.random() << 0 ] ];
+        }
+
+        // Select a color
+        function randomColor()
+        {
+            return colors[colors.length * Math.random() << 0]
+        }
+    </script>
+</body>
+</html>
