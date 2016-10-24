@@ -22,13 +22,13 @@
         integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc="
         crossorigin="anonymous"></script>
     <script>
-        var colors = ['red', 'green', 'blue', 'yellow', 'black', 'purple', 'grey'];
-        var block =
+        var colors = ['red', 'green', 'blue', 'yellow', 'black', 'purple', 'grey'],
+        block =
         {
             width: 30, // px
             height: 30 // px
-        };
-        var pieces =
+        },
+        pieces =
         {
             "I":{
                 width: (1 * block.width) + 'px',
@@ -58,11 +58,11 @@
                 width: (3 * block.width) + 'px',
                 height: (3 * block.height) + 'px'
             }
-        };
-        var board =
+        },
+        board =
         {
             width: (10 * block.width) + 'px',
-            height: (10 * block.height) + 'px'
+            height: (16 * block.height) + 'px'
         };
 
         $('.board').css({
@@ -70,30 +70,76 @@
             'height': board.height
         });
 
+        var movingPiece = false;
+        var piece,
+            pieceDiv;
+
+        $('body').keyup(function(e)
+        {
+            if(e.keyCode == 37) // left
+            {
+                left = parseInt(pieceDiv.css('left'));
+                left = (left - block.width);
+                if(left < 0)
+                {
+                    return;
+                }
+
+                pieceDiv.css('left', left + 'px');
+            }
+            else if(e.keyCode == 39) // right
+            {
+                left = parseInt(pieceDiv.css('left'));
+                left = (left + block.width);
+                if(left > parseInt(board.width, 10) - parseInt(pieces[piece].width, 10))
+                {
+                    return;
+                }
+
+                pieceDiv.css('left', left + 'px');
+            }
+        });
+
         main();
         setInterval(function()
         {
             main();
-        }, 30000);
+        }, 1000);
 
 
         function main()
         {
-            var piece = randomPiece();
-            window.console && console.log(piece);
-            window.console && console.log(pieces[piece]);
+            if(!movingPiece)
+            {
+                window.console && console.log('not moving')
+                piece = randomPiece();
+                window.console && console.log(piece);
+                window.console && console.log(pieces[piece]);
 
-            var pieceDiv = $('<div>')
-                .addClass('piece')
-                .css({
-                    'width': pieces[piece].width,
-                    'height': pieces[piece].height,
-                    'top': 0,
-                    'left': 0,
-                    'backgroundColor': randomColor()
-                });
+                pieceDiv = $('<div>')
+                    .addClass('piece')
+                    .css({
+                        'width': pieces[piece].width,
+                        'height': pieces[piece].height,
+                        'top': 0,
+                        'left': 0,
+                        'backgroundColor': randomColor()
+                    });
 
-            $('.board').append(pieceDiv);
+                $('.board').append(pieceDiv);
+
+                movingPiece = true;
+            }
+            else
+            {
+                pieceDiv.css({'top': (parseInt(pieceDiv.css('top'), 10) + block.height) + 'px'});
+
+                if(pieceDiv.css('top') == (parseInt(board.height, 10) - parseInt(pieces[piece].height, 10)) + 'px')
+                {
+                    movingPiece = false;
+                }
+            }
+
         }
 
 
