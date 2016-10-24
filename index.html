@@ -97,7 +97,7 @@
             {
                 left = parseInt(pieceDiv.css('left'));
                 left = (left + block.width);
-                if(left > parseInt(board.width, 10) - parseInt(pieces[piece].width, 10))
+                if(left > parseInt(board.width, 10) - parseInt(piece.width, 10))
                 {
                     return;
                 }
@@ -124,20 +124,17 @@
                 pieceDiv = $('<div>')
                     .addClass('piece')
                     .css({
-                        'width': pieces[piece].width,
-                        'height': pieces[piece].height,
+                        'width': piece.width,
+                        'height': piece.height,
                         'top': 0,
                         'left': 0
                     });
 
-                window.console && console.log(pieces[piece].colorMap)
-                for(var i in pieces[piece].colorMap)
+                for(var i in piece.colorMap)
                 {
-                    window.console && console.log(pieces[piece].colorMap[i])
-                    for(var j in pieces[piece].colorMap[i])
+                    for(var j in piece.colorMap[i])
                     {
-                        window.console && console.log(pieces[piece].colorMap[i][j])
-                        if(pieces[piece].colorMap[i][j])
+                        if(piece.colorMap[i][j])
                         {
                             var subPiece = $('<div>').addClass('subpiece').css({
                                 'backgroundColor': backgroundColor,
@@ -161,7 +158,7 @@
             {
                 pieceDiv.css({'top': (parseInt(pieceDiv.css('top'), 10) + block.height) + 'px'});
 
-                if(pieceDiv.css('top') == (parseInt(board.height, 10) - parseInt(pieces[piece].height, 10)) + 'px')
+                if(pieceDiv.css('top') == (parseInt(board.height, 10) - parseInt(piece.height, 10)) + 'px')
                 {
                     movingPiece = false;
                 }
@@ -174,7 +171,6 @@
         function randomPiece()
         {
             var keys = Object.keys(pieces)
-            return keys[keys.length * Math.random() << 0];
             return pieces[keys[ keys.length * Math.random() << 0 ] ];
         }
 
